@@ -18,12 +18,6 @@ public class WheelServiceImpl implements WheelService {
 
 
     @Override
-    public List<Wheel> getAllWheels() {
-        //TODO
-        return entityManager.createQuery("Select w from Wheel ", Wheel.class).getResultList();
-    }
-
-    @Override
     public Wheel getWheelByName(String name) {
         return null;
     }
@@ -36,5 +30,10 @@ public class WheelServiceImpl implements WheelService {
     @Override
     public void saveWheel(Wheel wheel) {
 
+    }
+
+    @Override
+    public List<Wheel> getWheelsByOwnerId(Long ownerId) {
+        return null;
     }
 }

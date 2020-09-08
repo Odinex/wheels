@@ -1,30 +1,37 @@
 package com.kp.wheels.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Wheel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wheel_id_sequence")
+    @SequenceGenerator(name = "wheel_id_sequence", sequenceName = "WHEEL_ID_SEQ", allocationSize = 10)
+    @Column(name = "id", unique = true, updatable = false, nullable = false)
+    private Long id;
+
     @Column
     private String make;
     @Column
     private String model;
-    @Id
+    @Column
     private String name;
     @Column
     private String variant;
 
+    @ManyToOne
+    private Owner owner;
+
     public Wheel() {
     }
 
-    public Wheel(String make, String model, String name, String variant) {
-
+    public Wheel(String make, String model, String name, String variant, Owner owner) {
         this.make = make;
         this.model = model;
         this.name = name;
         this.variant = variant;
+        this.owner = owner;
     }
 
     public String getMake() {
@@ -41,5 +48,37 @@ public class Wheel {
 
     public String getVariant() {
         return variant;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVariant(String variant) {
+        this.variant = variant;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

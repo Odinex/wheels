@@ -15,9 +15,10 @@ public class WheelController {
     @Autowired
     WheelService wheelService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/wheels", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Wheel>>  getAllWheels() {
-        return new ResponseEntity<>(wheelService.getAllWheels(), HttpStatus.OK);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/wheels/id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Wheel>> getWheelsByOwnerId(@RequestHeader("ownerId") Long ownerId) {
+        return new ResponseEntity<>(wheelService.getWheelsByOwnerId(ownerId), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/wheels/name", produces = MediaType.APPLICATION_JSON_VALUE)
