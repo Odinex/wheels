@@ -1,9 +1,8 @@
 package com.kp.wheels.services.impl;
 
-import com.kp.wheels.entities.Wheel;
-import com.kp.wheels.services.WheelService;
+import com.kp.wheels.entities.Task;
+import com.kp.wheels.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,28 +12,32 @@ import java.util.List;
 
 @Service
 @Transactional
-public class WheelServiceImpl implements WheelService {
+public class TaskServiceImpl implements TaskService {
     @Autowired
     EntityManager entityManager;
 
-
     @Override
-    public Wheel getWheelByName(String name) {
+    public Task getTaskById(Long id) {
         return null;
     }
 
     @Override
-    public void updateWheel(Wheel wheel) {
+    public void updateTask(Task wheel) {
 
     }
 
     @Override
-    public void saveWheel(Wheel wheel) {
+    public void saveTask(Task wheel) {
 
     }
 
     @Override
-    public List<Wheel> getWheelsByOwnerId(Long ownerId) {
+    public List<Task> getTasksByOwnerId(Long ownerId) {
+        return null;
+    }
+
+    @Override
+    public List<Task> getTasksByOwnerIdAndWheelId(Long ownerId, Long wheelId) {
         return null;
     }
 }

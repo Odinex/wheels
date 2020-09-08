@@ -21,17 +21,17 @@ public class Wheel {
     private String variant;
 
     @ManyToOne
-    private Owner owner;
+    private User user;
 
     public Wheel() {
     }
 
-    public Wheel(String make, String model, String name, String variant, Owner owner) {
+    public Wheel(String make, String model, String name, String variant, User user) {
         this.make = make;
         this.model = model;
         this.name = name;
         this.variant = variant;
-        this.owner = owner;
+        this.user = user;
     }
 
     public String getMake() {
@@ -66,12 +66,12 @@ public class Wheel {
         this.variant = variant;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public User getUser() {
+        return user;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
