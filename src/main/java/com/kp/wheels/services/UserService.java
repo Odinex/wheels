@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    void singUp(User user);
 
     /**
      * Logs in with the given {@code username} and {@code password}.
@@ -31,4 +30,6 @@ public interface UserService extends UserDetailsService {
      * @param user the user to logout
      */
     void logout(User user);
+
+    void signUp(String username, String password);
 }
