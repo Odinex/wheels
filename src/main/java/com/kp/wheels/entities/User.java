@@ -33,13 +33,8 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-
     @Column
     private UserRole userRole = UserRole.USER;
-
-
-
-
 
     public User(String name, String surname, String email, String password, UserRole userRole) {
         this.name = name;
@@ -55,11 +50,8 @@ public class User implements UserDetails {
     public User(@JsonProperty("username") final String username,
                 @JsonProperty("password") final String password) {
         super();
-        this.id = requireNonNull(id);
         this.name = requireNonNull(username);
         this.password = requireNonNull(password);
-
-        this.userRole = UserRole.USER;
     }
     @JsonIgnore
     @Override

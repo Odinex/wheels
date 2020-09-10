@@ -20,11 +20,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     EntityManager entityManager;
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
     UserCrudService userCrudService;
 
-
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @Override
     public Optional<Long> login(String username, String password) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(password);

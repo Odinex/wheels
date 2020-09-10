@@ -16,6 +16,8 @@ import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static io.jsonwebtoken.impl.TextCodec.BASE64;
 import static java.util.Objects.requireNonNull;
 
+import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
+
 @Service
 @Transactional
 public class TokenServiceImpl implements Clock,TokenService {
@@ -53,7 +55,15 @@ public class TokenServiceImpl implements Clock,TokenService {
 
     @Override
     public Map<String, String> untrusted(String token) {
-        return null;
+        final JwtParser parser = Jwts
+                .parser()
+                .requireIssuer(issuer)
+                .setClock(this)
+                .setAllowedClockSkewSeconds(clockSkewSec);
+
+        // See: https://github.com/jwtk/jjwt/issues/135
+        final String withoutSignature = substringBeforeLast(token, DOT) + DOT;
+        return parseClaims(() -> parser.parseClaimsJwt(withoutSignature).getBody());
     }
 
     @Override

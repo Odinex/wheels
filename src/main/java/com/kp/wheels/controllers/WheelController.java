@@ -24,8 +24,8 @@ public class WheelController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/wheels/name", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Wheel>  getWheelByName(@RequestHeader("name") String name) {
-        return new ResponseEntity<>(wheelService.getWheelByName(name), HttpStatus.OK);
+    public ResponseEntity<Wheel>  getWheelByName(@RequestHeader("name") String name,@RequestHeader("ownerId") Long ownerId) {
+        return new ResponseEntity<>(wheelService.getWheelByName(name, ownerId), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/wheels", produces = MediaType.APPLICATION_JSON_VALUE)
