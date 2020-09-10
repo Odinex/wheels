@@ -15,7 +15,7 @@ public interface UserService extends UserDetailsService {
      * @param password
      * @return an {@link Optional} of a user when login succeeds
      */
-    Optional<String> login(String username, String password);
+    Optional<Long> login(String username, String password);
 
     /**
      * Finds a user by its dao-key.
@@ -23,7 +23,7 @@ public interface UserService extends UserDetailsService {
      * @param token user dao key
      * @return
      */
-    Optional<User> findByToken(String token);
+    Optional<User> findByToken(Long token);
 
     /**
      * Logs out the given input {@code user}.

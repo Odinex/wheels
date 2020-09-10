@@ -1,6 +1,7 @@
 package com.kp.wheels.controllers;
 
 import com.kp.wheels.entities.User;
+import com.kp.wheels.services.UserCrudService;
 import com.kp.wheels.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,18 +16,22 @@ final class PublicUserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserCrudService userCrudService;
+
     @PostMapping("/register")
-    String register(
+    Long register(
             @RequestParam("username") final String username,
             @RequestParam("password") final String password) {
         User user = new User(username, password);
         userService.singUp(user);
+        userCrudService.save(user);
 
         return login(username, password);
     }
 
     @PostMapping("/login")
-    String login(
+    Long login(
             @RequestParam("username") final String username,
             @RequestParam("password") final String password) {
         return userService
