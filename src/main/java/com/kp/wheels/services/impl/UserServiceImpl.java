@@ -29,12 +29,12 @@ public class UserServiceImpl implements UserService {
     public Optional<Long> login(String username, String password) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(password);
         List<User> resultList = entityManager.createQuery("select c from User c where c.username = ?1 and c.password = ?2", User.class)
-                .setParameter(1, username)
-                .setParameter(2, encryptedPassword).getResultList();
-        if (resultList != null && !resultList.isEmpty()) {
+                .setParameter(1,username)
+                .setParameter(2,encryptedPassword).getResultList();
+        if(resultList != null && !resultList.isEmpty()) {
             User user = resultList.get(0);
             userCrudService.save(user);
-            return Optional.of(user.getId());
+            return  Optional.of(user.getId());
         }
         return Optional.empty();
     }
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signUp(String username, String password) {
 
-        User user = new User(username, password);
+        User user = new User( username,  password);
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
         user.setPassword(encryptedPassword);
@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        entityManager.createQuery("Select c FROM User c where c.email = :email", User.class).setParameter("email", s).getResultList();
+         entityManager.createQuery("Select c FROM User c where c.email = :email",User.class).setParameter("email",s).getResultList();
 
-        return null;
+       return null;
     }
 }
