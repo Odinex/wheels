@@ -1,9 +1,6 @@
 package com.kp.wheels.services;
 
 import com.kp.wheels.entities.Task;
-import com.kp.wheels.entities.Wheel;
-
-import java.util.List;
 
 public interface TaskService {
 
@@ -13,6 +10,6 @@ public interface TaskService {
 
     void saveTask(Task wheel);
 
-    List<Task> getTasksByUserId(Long ownerId);
-    List<Task> getTasksByOwnerIdAndWheelId(Long ownerId,Long wheelId);
+    Task[] getTasksByUserId(Long ownerId);
+    Task[] getTasksByUserIdAndWheelId(Long ownerId, Long wheelId);
 }

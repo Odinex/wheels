@@ -9,8 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class TaskController {
     @Autowired
@@ -18,12 +16,12 @@ public class TaskController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/userId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Task>> getTasksByOwnerId(@RequestHeader("userId") Long userId) {
+    public ResponseEntity<Task[]> getTasksByUserId(@RequestHeader("userId") Long userId) {
         return new ResponseEntity<>(taskService.getTasksByUserId(userId), HttpStatus.OK);
     }
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/ids", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Task>> getTasksByOwnerId(@RequestHeader("ownerId") Long ownerId, @RequestHeader("wheelId") Long wheelId) {
-        return new ResponseEntity<>(taskService.getTasksByOwnerIdAndWheelId(ownerId,wheelId), HttpStatus.OK);
+    public ResponseEntity<Task[]> getTasksByOwnerId(@RequestHeader("userId") Long userId, @RequestHeader("wheelId") Long wheelId) {
+        return new ResponseEntity<>(taskService.getTasksByUserIdAndWheelId(userId,wheelId), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/id", produces = MediaType.APPLICATION_JSON_VALUE)

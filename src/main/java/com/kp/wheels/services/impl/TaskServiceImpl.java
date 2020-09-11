@@ -17,9 +17,9 @@ public class TaskServiceImpl implements TaskService {
     EntityManager entityManager;
 
     @Override
-    public List<Task> getTasksByUserId(Long userId) {
+    public Task[] getTasksByUserId(Long userId) {
         return entityManager.createQuery("select w from Task where w.user = ?1", Task.class)
-                .setParameter(1,entityManager.find(User.class,userId)).getResultList();
+                .setParameter(1,entityManager.find(User.class,userId)).getResultList().toArray(new Task[0]);
     }
 
     @Override
@@ -39,10 +39,10 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
-    public List<Task> getTasksByOwnerIdAndWheelId(Long userId, Long wheelId) {
+    public Task[] getTasksByUserIdAndWheelId(Long userId, Long wheelId) {
         User user = entityManager.find(User.class, userId);
         List<Task> resultList = entityManager.createQuery("Select t from Task t Join t.wheel w where w.id = ?1 and w.user = ?2", Task.class)
                 .setParameter(1, wheelId).setParameter( 2, user).getResultList();
-        return resultList;
+        return resultList.toArray(new Task[0]);
     }
 }
