@@ -1,5 +1,6 @@
 package com.kp.wheels.controllers;
 
+import com.kp.wheels.entities.User;
 import com.kp.wheels.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +14,20 @@ final class PublicUserController {
 
 
     @PostMapping("/register")
-    Long register(
-            @RequestHeader(value = "username") final String username,
-            @RequestHeader("password") final String password) {
+    User register(
+            @RequestParam(value = "username") final String username,
+            @RequestParam("password") final String password) throws Exception {
         userService.signUp(username, password);
 
 
-        Long login = login(username, password);
+        User login = login(username, password);
         return login;
     }
 
     @PostMapping("/login")
-    Long login(
-            @RequestHeader("username") final String username,
-            @RequestHeader("password") final String password) {
+    User login(
+            @RequestParam("username") final String username,
+            @RequestParam("password") final String password) {
         return userService
                 .login(username, password)
                 .orElseThrow(() -> new RuntimeException("invalid login and/or password"));

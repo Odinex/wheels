@@ -1,11 +1,10 @@
 package com.kp.wheels.services;
 
 import com.kp.wheels.entities.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {//extends UserDetailsService {
 
     /**
      * Logs in with the given {@code username} and {@code password}.
@@ -14,7 +13,7 @@ public interface UserService extends UserDetailsService {
      * @param password
      * @return an {@link Optional} of a user when login succeeds
      */
-    Optional<Long> login(String username, String password);
+    Optional<User> login(String username, String password);
 
     /**
      * Finds a user by its dao-key.
@@ -31,5 +30,5 @@ public interface UserService extends UserDetailsService {
      */
     void logout(User user);
 
-    void signUp(String username, String password);
+    void signUp(String username, String password) throws Exception;
 }

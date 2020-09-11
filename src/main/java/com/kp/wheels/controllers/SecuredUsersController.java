@@ -3,9 +3,9 @@ package com.kp.wheels.controllers;
 import com.kp.wheels.entities.User;
 import com.kp.wheels.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,13 +15,17 @@ final class SecuredUsersController {
     UserService authentication;
 
     @GetMapping("/current")
-    User getCurrent(@AuthenticationPrincipal final User user) {
-        return user;
+    User getCurrent(@RequestParam("token") Long token) {
+        return authentication.findByToken(token).get();
     }
 
     @GetMapping("/logout")
-    boolean logout(@AuthenticationPrincipal final User user) {
-        authentication.logout(user);
+    boolean logout(@RequestParam("token") Long token) {
+        try {
+            authentication.logout(authentication.findByToken(token).get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }

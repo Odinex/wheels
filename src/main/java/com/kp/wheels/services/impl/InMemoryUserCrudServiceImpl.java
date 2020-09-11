@@ -32,7 +32,7 @@ public class InMemoryUserCrudServiceImpl implements UserCrudService {
         return users
                 .values()
                 .stream()
-                .filter(u -> Objects.equals(username, u.getUsername()))
+                .filter(u -> Objects.equals(username, u.getName()))
                 .findFirst();
     }
 
