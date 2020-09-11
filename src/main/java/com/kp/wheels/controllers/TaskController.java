@@ -17,9 +17,9 @@ public class TaskController {
     TaskService taskService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/tasks/ownerId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Task>> getTasksByOwnerId(@RequestHeader("ownerId") Long ownerId) {
-        return new ResponseEntity<>(taskService.getTasksByOwnerId(ownerId), HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks/userId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Task>> getTasksByOwnerId(@RequestHeader("userId") Long userId) {
+        return new ResponseEntity<>(taskService.getTasksByUserId(userId), HttpStatus.OK);
     }
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/ids", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Task>> getTasksByOwnerId(@RequestHeader("ownerId") Long ownerId, @RequestHeader("wheelId") Long wheelId) {

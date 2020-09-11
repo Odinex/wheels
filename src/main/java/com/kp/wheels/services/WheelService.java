@@ -14,5 +14,5 @@ public interface WheelService {
 
     void saveWheel(Wheel wheel);
 
-    List<Wheel> getWheelsByOwnerId(Long ownerId);
+    List<Wheel> getWheelsByUserId(Long ownerId);
 }

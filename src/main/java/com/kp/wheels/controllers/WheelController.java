@@ -18,9 +18,9 @@ public class WheelController {
     WheelService wheelService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/wheels/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Wheel>> getWheelsByOwnerId(@RequestHeader("ownerId") Long ownerId) {
-        return new ResponseEntity<>(wheelService.getWheelsByOwnerId(ownerId), HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET, value = "/wheels/userId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Wheel>> getWheelsByUserId(@RequestHeader("userId") Long userId) {
+        return new ResponseEntity<>(wheelService.getWheelsByUserId(userId), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/wheels/name", produces = MediaType.APPLICATION_JSON_VALUE)

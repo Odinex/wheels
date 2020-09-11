@@ -13,6 +13,6 @@ public interface TaskService {
 
     void saveTask(Task wheel);
 
-    List<Task> getTasksByOwnerId(Long ownerId);
+    List<Task> getTasksByUserId(Long ownerId);
     List<Task> getTasksByOwnerIdAndWheelId(Long ownerId,Long wheelId);
 }
