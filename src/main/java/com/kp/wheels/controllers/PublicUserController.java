@@ -1,8 +1,10 @@
 package com.kp.wheels.controllers;
 
+import com.kp.wheels.dto.UserDto;
 import com.kp.wheels.entities.User;
 import com.kp.wheels.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,23 +15,22 @@ final class PublicUserController {
     UserService userService;
 
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     User register(
-            @RequestParam(value = "username") final String username,
-            @RequestParam("password") final String password) throws Exception {
-        userService.signUp(username, password);
+            @RequestBody UserDto userDto) throws Exception {
+        userService.signUp(userDto.getUsername(),userDto.getPassword());
 
 
-        User login = login(username, password);
+        User login = login(userDto);
+        System.out.println("login result " + login);
         return login;
     }
 
-    @PostMapping("/login")
+    @PostMapping(value ="/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     User login(
-            @RequestParam("username") final String username,
-            @RequestParam("password") final String password) {
+            @RequestBody UserDto userDto) {
         return userService
-                .login(username, password)
+                .login(userDto.getUsername(),userDto.getPassword())
                 .orElseThrow(() -> new RuntimeException("invalid login and/or password"));
     }
 }
