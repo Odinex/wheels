@@ -12,7 +12,7 @@ import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 @Entity
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,12 +35,20 @@ public class User  {
 
     public User() {
     }
-    @JsonCreator
-    public User(@JsonProperty("username") final String username,
-                @JsonProperty("password") final String password) {
+
+    public User(final String username,
+                final String password) {
         super();
         this.name = requireNonNull(username);
         this.password = requireNonNull(password);
+    }
+
+    @JsonCreator
+    public User(@JsonProperty("id") final Long id,
+                @JsonProperty("name") final String name) {
+        super();
+        this.id = requireNonNull(id);
+        this.name = requireNonNull(name);
     }
 //    @JsonIgnore
 //    public Collection<GrantedAuthority> getAuthorities() {
@@ -48,11 +56,10 @@ public class User  {
 //    }
 
     @JsonIgnore
-  //  @Override
+    //  @Override
     public String getPassword() {
         return password;
     }
-
 
 
     @Override
@@ -68,7 +75,7 @@ public class User  {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name,  password, userRole);
+        return Objects.hash(id, name, password, userRole);
     }
 
     public Long getId() {

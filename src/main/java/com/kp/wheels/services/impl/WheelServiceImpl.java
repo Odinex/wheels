@@ -36,14 +36,21 @@ public class WheelServiceImpl implements WheelService {
     }
 
     @Override
-    public void updateWheel(Wheel wheel) {
-        saveWheel(wheel);
+    public void updateWheel(Wheel detachedWwheel) {
+        Wheel wheel = entityManager.find(Wheel.class, detachedWwheel.getId());
+        wheel.setMake(detachedWwheel.getMake());
+        wheel.setModel(detachedWwheel.getModel());
+        wheel.setName(detachedWwheel.getName());
 
     }
 
     @Override
-    public void saveWheel(Wheel wheel) {
-        entityManager.persist(wheel);
+    public void saveWheel(Wheel detachedWheel) {
+        User user = entityManager.find(User.class, detachedWheel.getUser().getId());
+        Wheel newWheel = new Wheel(detachedWheel.getMake(),detachedWheel.getModel(),
+                detachedWheel.getName(),detachedWheel.getVariant(),user);
+
+        entityManager.persist(newWheel);
 
     }
 

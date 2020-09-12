@@ -4,6 +4,7 @@ package com.kp.wheels.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"name", "user_id"})})
 public class Wheel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wheel_id_sequence")
