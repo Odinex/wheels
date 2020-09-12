@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -31,8 +32,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateTask(Task task) {
-        saveTask( task);
+    public void updateTask(Task jsonTask) {
+        Task task = entityManager.find(Task.class,jsonTask.getId());
+        task.setDateScheduled(jsonTask.getDateScheduled());
+        task.setDetails(jsonTask.getDetails());
+        task.setOtherTaskType(jsonTask.getOtherTaskType());
+        task.setTaskType(jsonTask.getTaskType());
+        if(!Objects.equals(jsonTask.getWheel().getId(), task.getWheel().getId())) {
+            Wheel wheel = entityManager.find(Wheel.class, jsonTask.getWheel().getId());
+            task.setWheel(wheel);
+        }
+        entityManager.persist(task);
     }
 
     @Override
