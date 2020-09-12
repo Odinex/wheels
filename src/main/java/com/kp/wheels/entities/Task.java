@@ -19,6 +19,7 @@ public class Task {
     @Column
     private Date dateScheduled;
     @Column
+    @Enumerated(EnumType.ORDINAL)
     private TaskTypeEnum taskType;
     @Column
     private String otherTaskType;

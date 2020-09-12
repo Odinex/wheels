@@ -2,12 +2,14 @@ package com.kp.wheels.services.impl;
 
 import com.kp.wheels.entities.Task;
 import com.kp.wheels.entities.User;
+import com.kp.wheels.entities.Wheel;
 import com.kp.wheels.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,7 +20,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task[] getTasksByUserId(Long userId) {
-        return entityManager.createQuery("select w from Task where w.user = ?1", Task.class)
+        return entityManager.createQuery("select t from Task t join t.wheel w where w.user = ?1 " +
+                "and t.dateScheduled >= current_date order by t.dateScheduled asc", Task.class)
                 .setParameter(1,entityManager.find(User.class,userId)).getResultList().toArray(new Task[0]);
     }
 
@@ -33,8 +36,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void saveTask(Task task) {
-        entityManager.persist(task);
+    public void saveTask(Task jsonTask) {
+        Wheel wheel = entityManager.find(Wheel.class, jsonTask.getWheel().getId());
+        Task newTask = new Task(new Date(),jsonTask.getDateScheduled(),
+                jsonTask.getTaskType(),jsonTask.getOtherTaskType(),jsonTask.getDetails(),wheel);
+
+        entityManager.persist(newTask);
     }
 
 

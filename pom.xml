@@ -98,8 +98,8 @@
             <version>0.7.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-2-jpa-with-hibernate-and-h2</artifactId>
         </dependency>
 
 

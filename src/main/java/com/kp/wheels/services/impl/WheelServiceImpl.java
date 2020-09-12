@@ -49,6 +49,6 @@ public class WheelServiceImpl implements WheelService {
 
     @Override
     public List<Wheel> getWheelsByUserId(Long userId) {
-        return entityManager.createQuery("select w from Wheel where w.user = ?1", Wheel.class).setParameter(1,entityManager.find(User.class,userId)).getResultList();
+        return entityManager.createQuery("select w from Wheel w where w.user = ?1", Wheel.class).setParameter(1,entityManager.find(User.class,userId)).getResultList();
     }
 }
