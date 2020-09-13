@@ -39,4 +39,10 @@ public class WheelController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/wheels", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteTask(@RequestHeader("id") Long id) {
+        wheelService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

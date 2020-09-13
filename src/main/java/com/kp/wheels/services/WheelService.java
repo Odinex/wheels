@@ -15,4 +15,6 @@ public interface WheelService {
     void saveWheel(Wheel wheel);
 
     List<Wheel> getWheelsByUserId(Long ownerId);
+
+    void delete(Long id);
 }
