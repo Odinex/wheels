@@ -39,4 +39,10 @@ public class TaskController {
         taskService.saveTask(task);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteTask(@RequestHeader("id") Long id) {
+        taskService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

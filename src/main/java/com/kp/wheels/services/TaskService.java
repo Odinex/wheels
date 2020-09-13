@@ -12,4 +12,6 @@ public interface TaskService {
 
     Task[] getTasksByUserId(Long ownerId);
     Task[] getTasksByUserIdAndWheelId(Long ownerId, Long wheelId);
+
+    void delete(Long id);
 }

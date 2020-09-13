@@ -62,4 +62,10 @@ public class TaskServiceImpl implements TaskService {
                 .setParameter(1, wheelId).setParameter( 2, user).getResultList();
         return resultList.toArray(new Task[0]);
     }
+
+    @Override
+    public void delete(Long id) {
+        Task task = entityManager.find(Task.class, id);
+        entityManager.remove(task);
+    }
 }
