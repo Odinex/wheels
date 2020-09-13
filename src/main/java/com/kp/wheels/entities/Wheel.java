@@ -1,7 +1,11 @@
 package com.kp.wheels.entities;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"name", "user_id"})})
@@ -20,6 +24,10 @@ public class Wheel {
     private String name;
     @Column
     private String variant;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "wheel")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Task> tasks;
 
     @ManyToOne
     private User user;
