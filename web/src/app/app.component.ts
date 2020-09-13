@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Provider} from '@angular/core';
+import {Type} from '@angular/compiler';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'web';
+  title = 'Wheels Diary';
+}
+declare module '@angular/core' {
+
+  interface ModuleWithProviders<T = any> {
+    ngModule: Type<T>;
+    providers?: Provider[];
+  }
 }

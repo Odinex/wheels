@@ -16,13 +16,19 @@ import {AlertService, AuthenticationService, UserService} from './_services';
 import {HomeComponent} from './home';
 import {LoginComponent} from './login';
 import {RegisterComponent} from './register';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from './material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    BrowserAnimationsModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
   declarations: [
     AppComponent,

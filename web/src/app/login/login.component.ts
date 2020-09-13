@@ -7,7 +7,8 @@ declare var module: {
 }
 @Component({
     moduleId: module.id,
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -41,4 +42,17 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+  register() {
+    this.loading = true;
+    this.authenticationService.register(this.model.username, this.model.password)
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
+  }
 }
