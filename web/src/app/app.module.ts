@@ -12,10 +12,9 @@ import {routing} from './app.routing';
 import {AlertComponent} from './_directives';
 import {AuthGuard} from './_guards';
 import {JwtInterceptor} from './_helpers';
-import {AlertService, AuthenticationService, UserService} from './_services';
+import {AlertService, AuthenticationService} from './_services';
 import {HomeComponent} from './home';
 import {LoginComponent} from './login';
-import {RegisterComponent} from './register';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -35,14 +34,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppComponent,
     AlertComponent,
     HomeComponent,
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
   ],
   providers: [
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

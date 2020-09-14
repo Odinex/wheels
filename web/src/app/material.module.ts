@@ -7,6 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -20,6 +21,7 @@ import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
     MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
+    MatTableModule
   ],
   exports: [
     MatSidenavModule,
@@ -30,6 +32,7 @@ import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
     MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {}

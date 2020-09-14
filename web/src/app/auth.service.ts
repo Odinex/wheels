@@ -20,8 +20,13 @@ export class AuthService {
   async login(username: string, password: string) {
     // const headers = new HttpHeaders()
     //   .set('Content-Type', 'application/json');
-    const transaction = await this.httpClient.post<User>('http://localhost:8080/public/users/register',
-      { username: username, password: password }).subscribe((data: User) => this.currentUser = { ...data });
+    debugger;
+    const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/register',
+      {username: username, password: password}).subscribe((data: User) => {
+        debugger;
+        this.currentUser = {...data};
+    });
+    debugger;
     console.log(transaction);
     if (this.currentUser !== null && this.currentUser.name !== null && this.currentUser.name.length > 0) {
       localStorage.setItem('currentUserName', this.currentUser.name);
@@ -44,6 +49,7 @@ export class AuthService {
 
   checkAuthenticated() {
     const item = localStorage.getItem('currentUserName');
+    debugger;
     if (item != null && item.length > 0) {
       this.currentUser = new User();
       this.currentUser.name = item;
@@ -51,5 +57,10 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  getCurrentUser() {
+
+    return this.currentUser;
   }
 }

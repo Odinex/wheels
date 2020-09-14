@@ -39,3 +39,18 @@ a:active {
   margin: 0;
   width: 85%;
 }
+.tableContainer {
+  margin-top: 8px;
+  overflow-x: visible;
+}
+table {
+  margin: 20px ;
+  width: 140vh;
+  font-size: 10px;
+}
+.mat-cell {
+   font-size: 20px;
+ }
+.mat-header-cell {
+  font-size: 20px;
+}

@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     });
 
     if (await this.authService.checkAuthenticated()) {
+      debugger;
       await this.router.navigate([this.returnUrl]);
     }
   }
@@ -55,7 +56,9 @@ export class LoginComponent implements OnInit {
       } catch (err) {
         this.loginInvalid = true;
       }
+      debugger;
     } else {
+      debugger;
       this.formSubmitAttempt = true;
     }
   }
