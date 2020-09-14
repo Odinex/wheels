@@ -19,7 +19,7 @@ import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatFormFieldModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
   ],
   exports: [
     MatSidenavModule,
