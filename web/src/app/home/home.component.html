@@ -47,12 +47,6 @@
           </li>
           <li>
             <a>
-              <mat-icon class="icon">dashboard</mat-icon>
-              <span class="label">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a>
               <mat-icon class="icon">input</mat-icon>
               <span class="label">LogOut</span>
             </a>
@@ -66,12 +60,12 @@
 </mat-sidenav-container>
 
 <div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.firstName}}!</h1>
+    <h1>Hi {{currentUser.name}}!</h1>
     <p>You're logged in with Angular 2!!</p>
     <h3>All registered users:</h3>
     <ul>
         <li *ngFor="let user of users">
-            {{user.username}} ({{user.firstName}} {{user.lastName}})
+            {{user.name}} )
             - <a (click)="deleteUser(user.id)">Delete</a>
         </li>
     </ul>

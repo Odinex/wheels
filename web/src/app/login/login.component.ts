@@ -2,6 +2,8 @@
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../_services/index';
+import {FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from '../auth.service';
 declare var module: {
   id: string;
 }
@@ -12,24 +14,70 @@ declare var module: {
 })
 
 export class LoginComponent implements OnInit {
-    model: any = {};
-    loading = false;
-    returnUrl: string;
+  public form: FormGroup;
+  public loginInvalid: boolean;
+  private formSubmitAttempt: boolean;
+  private returnUrl: string;
+  loading = false;
+  model: any = {};
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService
+  ) {
+  }
 
-    ngOnInit() {
-        // reset login status
-        this.authenticationService.logout();
+  async ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '';
 
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    if (await this.authService.checkAuthenticated()) {
+      await this.router.navigate([this.returnUrl]);
     }
+  }
 
+  async onSubmit() {
+    this.loginInvalid = false;
+    this.formSubmitAttempt = false;
+    if (this.form.valid) {
+      try {
+        const username = this.form.get('username').value;
+        const password = this.form.get('password').value;
+        await this.authService.login(username, password);
+      } catch (err) {
+        this.loginInvalid = true;
+      }
+    } else {
+      this.formSubmitAttempt = true;
+    }
+  }
+    // model: any = {};
+    // loading = false;
+    // returnUrl: string;
+    //
+    //
+  //   constructor(
+  //       private route: ActivatedRoute,
+  //       private router: Router,
+  //       private authenticationService: AuthenticationService,
+  //       private alertService: AlertService) { }
+  //
+  //   ngOnInit() {
+  //       // reset login status
+  //       this.authenticationService.logout();
+  //
+  //       // get return url from route parameters or default to '/'
+  //       this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  //   }
+  //
     login() {
         this.loading = true;
         this.authenticationService.login(this.model.username, this.model.password)

@@ -1,5 +1,6 @@
 import {Component, Provider} from '@angular/core';
 import {Type} from '@angular/compiler';
+import {AuthService} from './auth.service';
 
 
 @Component({
@@ -9,6 +10,21 @@ import {Type} from '@angular/compiler';
 })
 export class AppComponent {
   title = 'Wheels Diary';
+  isAuthenticated = false;
+
+  constructor(public authService: AuthService) {
+    this.authService.isAuthenticated.subscribe(
+      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+    );
+  }
+
+  async ngOnInit() {
+    this.isAuthenticated = await this.authService.checkAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout('/');
+  }
 }
 declare module '@angular/core' {
 
