@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from '../auth.service';
+import {User} from '../dto/user';
+import {HttpClient} from '@angular/common/http';
 declare var module: {
   id: string;
 };
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private httpClient: HttpClient) {
   }
 
   async ngOnInit() {
@@ -46,7 +49,18 @@ export class LoginComponent implements OnInit {
       try {
         const username = this.form.get('username').value;
         const password = this.form.get('password').value;
-        this.authService.login(username, password);
+        const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/login',
+          {username, password}).subscribe((data: User) => {
+          this.authService.currentUser = {...data};
+          if (this.authService.currentUser.name !== null && this.authService.currentUser.name.length > 0) {
+            this.authService.saveInStorage();
+            this.authService.isAuthenticated.next(true);
+            this.router.navigate(['/']).then();
+          } else {
+            throw Error('We cannot handle the ' + transaction + ' status');
+          }
+        }, () => {this.loginInvalid = true; });
+
       } catch (err) {
         this.loginInvalid = true;
       }

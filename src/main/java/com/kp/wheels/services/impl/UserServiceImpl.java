@@ -1,6 +1,7 @@
 package com.kp.wheels.services.impl;
 
 import com.kp.wheels.entities.User;
+import com.kp.wheels.exceptions.SignUpException;
 import com.kp.wheels.services.UserCrudService;
 import com.kp.wheels.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(String username, String password, String email) throws Exception {
+    public void signUp(String username, String password, String email) throws SignUpException {
         if(entityManager.createQuery("select u from User u where u.name = ?1").setParameter(1,username).getResultList().isEmpty()) {
 
             User user = new User(username, password, email);
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
             entityManager.persist(user);
         } else {
-            throw new Exception("Username already used!");
+            throw new SignUpException("Username already used!");
         }
     }
 

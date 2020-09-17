@@ -2,21 +2,21 @@
 <mat-card>
   <mat-card-content>
     <form [formGroup]="form" >
-      <h2>Log In Or Register for Wheels Diary</h2>
-      <!--<mat-error *ngIf="loginInvalid">-->
-        <!--The username and password were not recognised-->
-      <!--</mat-error>-->
+      <h2>Log In Wheels Diary</h2>
+      <mat-error *ngIf="loginInvalid">
+        The username and password were not recognised
+      </mat-error>
       <mat-form-field >
         <input matNativeControl placeholder="Name" formControlName="username" required>
-        <!--<mat-error>-->
-          <!--Please provide a valid email address-->
-        <!--</mat-error>-->
+        <mat-error>
+          Please provide a name
+        </mat-error>
       </mat-form-field>
       <mat-form-field >
       <input matNativeControl type="password" placeholder="Password" formControlName="password" required>
-      <!--<mat-error>-->
-      <!--Please provide a valid password-->
-      <!--</mat-error>-->
+      <mat-error>
+      Please provide a valid password
+      </mat-error>
     </mat-form-field>
       <button mat-raised-button id="login_button" (click)="onSubmit()" color="primary">Login</button>
 

@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from '../auth.service';
+import {User} from '../dto/user';
+import {HttpClient} from '@angular/common/http';
 declare var module: {
   id: string;
 };
@@ -24,7 +26,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private httpClient: HttpClient) {
   }
 
   async ngOnInit() {
@@ -47,7 +50,7 @@ export class RegisterComponent implements OnInit {
     this.authService.logout('login');
   }
 
-  async register() {
+   register() {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
@@ -55,7 +58,17 @@ export class RegisterComponent implements OnInit {
         const username = this.form.get('username').value;
         const password = this.form.get('password').value;
         const email = this.form.get('email').value;
-        await this.authService.register(username, password, email);
+        const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/register',
+          {username, password, email}).subscribe((data: User) => {
+          this.authService.currentUser = {...data};
+          if (this.authService.currentUser.name !== null && this.authService.currentUser.name.length > 0) {
+            this.authService.saveInStorage();
+            this.authService.isAuthenticated.next(true);
+            this.router.navigate(['/']).then();
+          } else {
+            throw Error('We cannot handle the ' + transaction + ' status');
+          }
+        }, () => {this.loginInvalid = true; });
       } catch (err) {
         this.loginInvalid = true;
       }
