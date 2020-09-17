@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,16 +7,17 @@ declare var module: {
   id: string;
 };
 @Component({
-    moduleId: module.id,
-    templateUrl: 'login.component.html',
-  styleUrls: ['./login.component.css']
+  moduleId: module.id,
+  templateUrl: 'register.component.html',
+  styleUrls: ['./register.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   public form: FormGroup;
   public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
   private returnUrl: string;
+  loading = false;
   model: any = {};
 
   constructor(
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
 
     this.form = this.fb.group({
       username: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
     });
 
@@ -39,24 +41,28 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+
+
+  goToLogin() {
+    this.authService.logout('login');
+  }
+
+  async register() {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
       try {
         const username = this.form.get('username').value;
         const password = this.form.get('password').value;
-        this.authService.login(username, password);
+        const email = this.form.get('email').value;
+        await this.authService.register(username, password, email);
       } catch (err) {
         this.loginInvalid = true;
       }
+      debugger;
     } else {
+      debugger;
       this.formSubmitAttempt = true;
     }
-  }
-
-
-  goToRegister() {
-    this.authService.logout('register');
   }
 }

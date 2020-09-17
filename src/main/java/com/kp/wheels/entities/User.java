@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kp.wheels.enums.UserRole;
+import com.kp.wheels.validation.ValidEmail;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -25,6 +26,10 @@ public class User {
     private String password;
 
     @Column
+    @ValidEmail
+    private String email;
+
+    @Column
     private UserRole userRole = UserRole.USER;
 
     public User(String name, String password, UserRole userRole) {
@@ -37,18 +42,21 @@ public class User {
     }
 
     public User(final String username,
-                final String password) {
+                final String password, final String email) {
         super();
         this.name = requireNonNull(username);
         this.password = requireNonNull(password);
+        this.email = requireNonNull(email);
     }
 
     @JsonCreator
     public User(@JsonProperty("id") final Long id,
-                @JsonProperty("name") final String name) {
+                @JsonProperty("name") final String name,
+                @JsonProperty("name") final String email) {
         super();
         this.id = requireNonNull(id);
         this.name = requireNonNull(name);
+        this.email = requireNonNull(email);
     }
 //    @JsonIgnore
 //    public Collection<GrantedAuthority> getAuthorities() {
@@ -105,6 +113,14 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

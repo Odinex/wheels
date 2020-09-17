@@ -18,7 +18,7 @@ final class PublicUserController {
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     User register(
             @RequestBody UserDto userDto) throws Exception {
-        userService.signUp(userDto.getUsername(),userDto.getPassword());
+        userService.signUp(userDto.getUsername(),userDto.getPassword(), userDto.getEmail());
 
 
         User login = login(userDto);

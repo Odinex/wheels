@@ -18,6 +18,8 @@ import {LoginComponent} from './login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { TaskComponent } from './task/task.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppComponent,
     AlertComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TaskComponent,
+    RegisterComponent
   ],
   providers: [
     AuthGuard,

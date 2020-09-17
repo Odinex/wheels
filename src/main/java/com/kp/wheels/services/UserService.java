@@ -30,5 +30,5 @@ public interface UserService {//extends UserDetailsService {
      */
     void logout(User user);
 
-    void signUp(String username, String password) throws Exception;
+    void signUp(String username, String password, String email) throws Exception;
 }

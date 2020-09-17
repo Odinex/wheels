@@ -8,6 +8,10 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCard, MatCardContent, MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -21,7 +25,11 @@ import {MatTableModule} from '@angular/material/table';
     MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatInputModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatSidenavModule,
@@ -32,7 +40,10 @@ import {MatTableModule} from '@angular/material/table';
     MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatInputModule,
+    MatDialogModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule {}

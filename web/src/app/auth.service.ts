@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from './_models';
+import {User} from './dto/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,25 +16,36 @@ export class AuthService {
   }
 
 
+  private USER_NAME = Object.freeze('currentUserName');
 
-  async login(username: string, password: string) {
+  private EMAIL = Object.freeze('currentEmail');
+
+  private USER_ID = Object.freeze('currentUserId');
+
+  login(username: string, password: string) {
     // const headers = new HttpHeaders()
     //   .set('Content-Type', 'application/json');
-    debugger;
-    const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/register',
-      {username: username, password: password}).subscribe((data: User) => {
+    const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/login',
+      {username, password}).subscribe((data: User) => {
+      debugger;
+      this.currentUser = {...data};
+      if (this.currentUser.name !== null && this.currentUser.name.length > 0) {
+        this.saveInStorage();
+        this.isAuthenticated.next(true);
         debugger;
-        this.currentUser = {...data};
+        this.router.navigate(['/']).then();
+      } else {
+        throw Error('We cannot handle the ' + transaction + ' status');
+      }
     });
-    debugger;
     console.log(transaction);
-    if (this.currentUser !== null && this.currentUser.name !== null && this.currentUser.name.length > 0) {
-      localStorage.setItem('currentUserName', this.currentUser.name);
-      localStorage.setItem('currentUserId', String(this.currentUser.id));
-      this.isAuthenticated.next(true);
-    } else {
-      throw Error('We cannot handle the ' + transaction + ' status');
-    }
+
+  }
+
+  private saveInStorage() {
+    localStorage.setItem(this.USER_NAME, this.currentUser.name);
+    localStorage.setItem(this.EMAIL, this.currentUser.name);
+    localStorage.setItem(this.USER_ID, String(this.currentUser.id));
   }
 
   async logout(redirect: string) {
@@ -51,9 +62,8 @@ export class AuthService {
     const item = localStorage.getItem('currentUserName');
     debugger;
     if (item != null && item.length > 0) {
-      this.currentUser = new User();
-      this.currentUser.name = item;
-      this.currentUser.id = +localStorage.getItem('currentUserId');
+      this.currentUser = new User(+localStorage.getItem('currentUserId'), item,
+        localStorage.getItem('currentEmail'), null);
       return true;
     }
     return false;
@@ -62,5 +72,22 @@ export class AuthService {
   getCurrentUser() {
 
     return this.currentUser;
+  }
+
+  register(username: any, password: any, email: string) {
+    debugger;
+    // TODO add email
+    const transaction = this.httpClient.post<User>('http://localhost:8080/public/users/register',
+      {username, password, email}).subscribe((data: User) => {
+      debugger;
+      this.currentUser = {...data};
+      if (this.currentUser.name !== null && this.currentUser.name.length > 0) {
+        this.saveInStorage();
+        this.isAuthenticated.next(true);
+      } else {
+        throw Error('We cannot handle the ' + transaction + ' status');
+      }
+    });
+
   }
 }

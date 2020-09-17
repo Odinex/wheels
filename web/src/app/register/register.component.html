@@ -1,0 +1,33 @@
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" >
+      <h2>Log In Or Register for Wheels Diary</h2>
+      <!--<mat-error *ngIf="loginInvalid">-->
+      <!--The username and password were not recognised-->
+      <!--</mat-error>-->
+      <mat-form-field >
+        <input matNativeControl placeholder="Name" formControlName="username" required>
+        <!--<mat-error>-->
+        <!--Please provide a valid email address-->
+        <!--</mat-error>-->
+      </mat-form-field>
+      <mat-form-field >
+        <input matNativeControl placeholder="Email" formControlName="email" required>
+        <!--<mat-error>-->
+        <!--Please provide a valid email address-->
+        <!--</mat-error>-->
+      </mat-form-field>
+      <mat-form-field >
+        <input matNativeControl type="password" placeholder="Password" formControlName="password" required>
+        <!--<mat-error>-->
+        <!--Please provide a valid password-->
+        <!--</mat-error>-->
+      </mat-form-field>
+      <button mat-raised-button id="login_button" (click)="goToLogin()" color="primary">Go to Login</button>
+
+      <button mat-raised-button id="register_button" (click)="register()" color="primary">Register</button>
+    </form>
+
+  </mat-card-content>
+</mat-card>

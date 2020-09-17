@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(String username, String password) throws Exception {
+    public void signUp(String username, String password, String email) throws Exception {
         if(entityManager.createQuery("select u from User u where u.name = ?1").setParameter(1,username).getResultList().isEmpty()) {
 
-            User user = new User(username, password);
+            User user = new User(username, password, email);
             //     final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
             user.setPassword(password);

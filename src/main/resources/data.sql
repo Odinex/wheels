@@ -1,7 +1,7 @@
-insert into user(id,name,password)  values (100,'Ivan', 'password');
-insert into user(id,name,password)  values (101,'Georgi', 'password');
-insert into user(id,name,password)  values (102,'Ivelina', 'password');
-insert into user(id,name,password)  values (103,'Pavlina', 'password');
+insert into user(id,name,password, email)  values (100,'Ivan', 'password', 'kostadin3443@gmail.com');
+insert into user(id,name,password, email)  values (101,'Georgi', 'password', 'kostadin3443@gmail.com');
+insert into user(id,name,password, email)  values (102,'Ivelina', 'password', 'kostadin3443@gmail.com');
+insert into user(id,name,password, email)  values (103,'Pavlina', 'password', 'kostadin3443@gmail.com');
 
 insert into wheel(id,make,model,name, user_id) values (100,'Lamborghini', 'Aventador S', 'Aventador',100);
 insert into wheel(id,make,model,name, user_id) values (101,'Lamborghini', 'URUS', 'Lambo',101);
