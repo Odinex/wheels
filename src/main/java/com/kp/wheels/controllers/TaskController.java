@@ -20,14 +20,9 @@ public class TaskController {
     public ResponseEntity<Task[]> getTasksByUserId(@RequestHeader("userId") Long userId) {
         return new ResponseEntity<>(taskService.getTasksByUserId(userId), HttpStatus.OK);
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/tasks/ids", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task[]> getTasksByOwnerId(@RequestHeader("userId") Long userId, @RequestHeader("wheelId") Long wheelId) {
-        return new ResponseEntity<>(taskService.getTasksByUserIdAndWheelId(userId,wheelId), HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/tasks/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task>  getTaskByName(@RequestHeader("id") Long id) {
-        return new ResponseEntity<>(taskService.getTaskById(id), HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks/all/userId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Task[]> getTasksByOwnerId(@RequestHeader("userId") Long userId) {
+        return new ResponseEntity<>(taskService.getAllByUserId(userId), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,7 +30,7 @@ public class TaskController {
         taskService.updateTask(task);
         return new ResponseEntity(HttpStatus.OK);
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/tasks",consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity saveTask(@RequestBody Task task) {
         taskService.saveTask(task);
         return new ResponseEntity(HttpStatus.OK);

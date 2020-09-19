@@ -22,10 +22,6 @@ public class WheelController {
         return new ResponseEntity<>(wheelService.getWheelsByUserId(userId), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/wheels/name", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Wheel>  getWheelByName(@RequestHeader("name") String name,@RequestHeader("ownerId") Long ownerId) {
-        return new ResponseEntity<>(wheelService.getWheelByName(name, ownerId), HttpStatus.OK);
-    }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/wheels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateWheel(@RequestBody Wheel wheel) {
@@ -39,7 +35,7 @@ public class WheelController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/wheels", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteTask(@RequestHeader("id") Long id) {
+    public ResponseEntity deleteWheel(@RequestHeader("id") Long id) {
         wheelService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

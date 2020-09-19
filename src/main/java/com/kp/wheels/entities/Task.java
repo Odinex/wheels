@@ -1,7 +1,7 @@
 package com.kp.wheels.entities;
 
 
-import com.kp.wheels.enums.TaskTypeEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,24 +19,29 @@ public class Task {
     @Column
     private Date dateScheduled;
     @Column
-    @Enumerated(EnumType.ORDINAL)
-    private TaskTypeEnum taskType;
-    @Column
-    private String otherTaskType;
+    private String taskType;
     @Column
     private String details;
+    @Column
+    private Boolean isCompleted;
+    @Column
+    private Double price;
+    @Column
+    private Integer travelledKmWhenCompleted;
     @ManyToOne
     private Wheel wheel;
 
     public Task() {
     }
 
-    public Task(Date dateCreated, Date dateScheduled, TaskTypeEnum taskType, String otherTaskType, String details, Wheel wheel) {
+    public Task(Date dateCreated, Date dateScheduled, String taskType, String details, Boolean isCompleted, Double price, Integer travelledKmWhenCompleted, Wheel wheel) {
         this.dateCreated = dateCreated;
         this.dateScheduled = dateScheduled;
         this.taskType = taskType;
-        this.otherTaskType = otherTaskType;
         this.details = details;
+        this.isCompleted = isCompleted;
+        this.price = price;
+        this.travelledKmWhenCompleted = travelledKmWhenCompleted;
         this.wheel = wheel;
     }
 
@@ -56,6 +61,31 @@ public class Task {
         this.dateCreated = dateCreated;
     }
 
+    @JsonProperty("isCompleted")
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+    @JsonProperty("isCompleted")
+    public void setCompleted(Boolean completed) {
+        isCompleted = completed;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getTravelledKmWhenCompleted() {
+        return travelledKmWhenCompleted;
+    }
+
+    public void setTravelledKmWhenCompleted(Integer travelledKmWhenCompleted) {
+        this.travelledKmWhenCompleted = travelledKmWhenCompleted;
+    }
+
     public Date getDateScheduled() {
         return dateScheduled;
     }
@@ -64,20 +94,12 @@ public class Task {
         this.dateScheduled = dateScheduled;
     }
 
-    public TaskTypeEnum getTaskType() {
+    public String getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(TaskTypeEnum taskType) {
+    public void setTaskType(String taskType) {
         this.taskType = taskType;
-    }
-
-    public String getOtherTaskType() {
-        return otherTaskType;
-    }
-
-    public void setOtherTaskType(String otherTaskType) {
-        this.otherTaskType = otherTaskType;
     }
 
     public String getDetails() {

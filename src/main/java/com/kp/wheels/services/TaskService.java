@@ -11,7 +11,7 @@ public interface TaskService {
     void saveTask(Task wheel);
 
     Task[] getTasksByUserId(Long ownerId);
-    Task[] getTasksByUserIdAndWheelId(Long ownerId, Long wheelId);
+    Task[] getAllByUserId(Long ownerId);
 
     void delete(Long id);
 }

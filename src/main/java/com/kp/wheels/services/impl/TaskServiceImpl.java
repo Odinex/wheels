@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -23,7 +22,7 @@ public class TaskServiceImpl implements TaskService {
     public Task[] getTasksByUserId(Long userId) {
         return entityManager.createQuery("select t from Task t join t.wheel w where w.user = ?1 " +
                 "and t.dateScheduled >= current_date order by t.dateScheduled asc", Task.class)
-                .setParameter(1,entityManager.find(User.class,userId)).getResultList().toArray(new Task[0]);
+                .setParameter(1, entityManager.find(User.class, userId)).getResultList().toArray(new Task[0]);
     }
 
     @Override
@@ -33,12 +32,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(Task jsonTask) {
-        Task task = entityManager.find(Task.class,jsonTask.getId());
+        Task task = entityManager.find(Task.class, jsonTask.getId());
         task.setDateScheduled(jsonTask.getDateScheduled());
         task.setDetails(jsonTask.getDetails());
-        task.setOtherTaskType(jsonTask.getOtherTaskType());
+        task.setCompleted(jsonTask.getCompleted());
+        task.setPrice(jsonTask.getPrice());
+        task.setTravelledKmWhenCompleted(jsonTask.getTravelledKmWhenCompleted());
         task.setTaskType(jsonTask.getTaskType());
-        if(!Objects.equals(jsonTask.getWheel().getId(), task.getWheel().getId())) {
+        if (!Objects.equals(jsonTask.getWheel().getId(), task.getWheel().getId())) {
             Wheel wheel = entityManager.find(Wheel.class, jsonTask.getWheel().getId());
             task.setWheel(wheel);
         }
@@ -48,19 +49,19 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void saveTask(Task jsonTask) {
         Wheel wheel = entityManager.find(Wheel.class, jsonTask.getWheel().getId());
-        Task newTask = new Task(new Date(),jsonTask.getDateScheduled(),
-                jsonTask.getTaskType(),jsonTask.getOtherTaskType(),jsonTask.getDetails(),wheel);
+        Task newTask = new Task(new Date(), jsonTask.getDateScheduled(),
+                jsonTask.getTaskType(), jsonTask.getDetails(), jsonTask.getCompleted(),
+                jsonTask.getPrice(), jsonTask.getTravelledKmWhenCompleted(), wheel);
 
         entityManager.persist(newTask);
     }
 
 
     @Override
-    public Task[] getTasksByUserIdAndWheelId(Long userId, Long wheelId) {
-        User user = entityManager.find(User.class, userId);
-        List<Task> resultList = entityManager.createQuery("Select t from Task t Join t.wheel w where w.id = ?1 and w.user = ?2", Task.class)
-                .setParameter(1, wheelId).setParameter( 2, user).getResultList();
-        return resultList.toArray(new Task[0]);
+    public Task[] getAllByUserId(Long userId) {
+        return entityManager.createQuery("select t from Task t join t.wheel w where w.user = ?1 " +
+                " order by t.dateScheduled asc", Task.class)
+                .setParameter(1, entityManager.find(User.class, userId)).getResultList().toArray(new Task[0]);
     }
 
     @Override

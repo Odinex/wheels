@@ -9,6 +9,7 @@ import {TaskDTO} from '../dto/TaskDTO';
 import {TaskComponent} from '../task/task.component';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {User} from '../dto/user';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 declare var module: {
   id: string;
@@ -26,15 +27,17 @@ export class HomeComponent implements OnInit {
   wheels: WheelDTO[];
   columnsToDisplay = ['wheelId', 'name', 'make', 'model', 'variant', 'travelledKm', 'actions'];
   columnsOfTasksToDisplay = ['taskId', 'dateCreated', 'dateScheduled', 'travelledKmWhenCompleted', 'taskType',
-    'details', 'isCompleted', 'price', 'wheelName', 'actions'];
+    'details', 'isCompleted', 'price', 'wheelName', 'actions', 'settings'];
   tasks: Array<TaskDTO>;
-  private haveOpenLink: false;
+  private areAllTaskShown = false;
+  options: any;
 
   constructor(public authService: AuthService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private httpClient: HttpClient) {
     this.currentUser = authService.getCurrentUser();
-
+    this.options = {year: 'numeric', month: 'numeric', day: 'numeric'};
   }
 
   async ngOnInit(): Promise<void> {
@@ -42,26 +45,9 @@ export class HomeComponent implements OnInit {
 
       await this.router.navigate(['login']);
     }
-    this.wheels = [new WheelDTO(1, 'test1', 'model1', 'name1', 'variant1', 123, this.currentUser),
-      new WheelDTO(2, 'test2', 'model2', 'name2', 'variant2', 123, this.currentUser),
-      new WheelDTO(3, 'test3', 'model3', 'name3', 'variant3', 123, this.currentUser)];
-    this.tasks = [];
-    let i = 1;
-
-    const now = new Date();
-    for (const wheel of this.wheels) {
-      this.tasks.push(new TaskDTO(i++, now, new Date(now.getTime() + (i * 84000000)),
-        'Застраховка', 'details' + i, 1, 1,
-        wheel, false));
-      this.tasks.push(new TaskDTO(i++, now, new Date(now.getTime() + (i * 84000000)),
-        'TaskTypeEnum.INSURANCE', 'details' + i, 1, 1,
-        wheel, false));
-      this.tasks.push(new TaskDTO(i++, now, new Date(now.getTime() + (i * 84000000)),
-        'Странен Тип', 'detaidddddddddddddddddddddddddddddddddddddddddddls' + i, 1, 1,
-        wheel, false));
-    }
+    this.getUserWheels();
+    this.showOnlyUpcoming();
   }
-
   logout() {
     this.authService.logout('login');
   }
@@ -74,6 +60,8 @@ export class HomeComponent implements OnInit {
   deleteWheel(wheel: WheelDTO) {
 
   }
+
+
 
   editSelected(task: TaskDTO, i: number) {
     const dialogConfig = new MatDialogConfig<TaskDTO>();
@@ -90,5 +78,59 @@ export class HomeComponent implements OnInit {
 
   deleteSaved(task: TaskDTO, i: number) {
 
+  }
+
+  getTasksFromBe(url = 'http://localhost:8080/tasks/userId') {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8',
+        userId: this.currentUser.id.toString()
+      })
+    };
+
+    const transaction = this.httpClient.get<TaskDTO[]>(url, httpOptions)
+      .subscribe((data: TaskDTO[]) => {
+
+        this.tasks = [];
+        for (const dto of data) {
+          dto.dateCreated = new Date(dto.dateCreated);
+          dto.dateScheduled = new Date(dto.dateScheduled);
+          this.tasks.push(dto);
+        }
+      }, error => {
+        console.log(error);
+        // TODO show error
+      });
+  }
+
+  getUserWheels() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8',
+        userId: this.currentUser.id.toString()
+      })
+    };
+
+    const transaction = this.httpClient.get<WheelDTO[]>('http://localhost:8080/wheels/userId', httpOptions)
+      .subscribe((data: WheelDTO[]) => {
+
+        this.wheels = [];
+        for (const dto of data) {
+          this.wheels.push(dto);
+        }
+      }, error => {
+        console.log(error);
+        // TODO show error
+      });
+  }
+
+  showAlLTasks() {
+    this.getTasksFromBe('http://localhost:8080/tasks/all/userId');
+    this.areAllTaskShown = true;
+  }
+
+  showOnlyUpcoming() {
+    this.getTasksFromBe('http://localhost:8080/tasks/userId');
+    this.areAllTaskShown = false;
   }
 }

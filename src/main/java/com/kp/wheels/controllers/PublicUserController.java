@@ -24,10 +24,11 @@ final class PublicUserController {
     ResponseEntity<User> register(
             @RequestBody UserDto userDto)  {
         try {
-            userService.signUp(userDto.getUsername(),userDto.getPassword(), userDto.getEmail());
+            userService.signUp(userDto.getUsername(),userDto.getPassword(), userDto.getEmail(),
+                    userDto.getSubscribedForMail(), userDto.getSubscribedForMail(), userDto.getDaysBetweenNotifications());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
-        }   
+        }
         return login(userDto);
     }
 
