@@ -19,10 +19,17 @@ public class TaskServiceImpl implements TaskService {
     EntityManager entityManager;
 
     @Override
-    public Task[] getTasksByUserId(Long userId) {
+    public Task[] getTasksByUserId(User user) {
         return entityManager.createQuery("select t from Task t join t.wheel w where w.user = ?1 " +
                 "and t.dateScheduled >= current_date order by t.dateScheduled asc", Task.class)
-                .setParameter(1, entityManager.find(User.class, userId)).getResultList().toArray(new Task[0]);
+                .setParameter(1, user).getResultList().toArray(new Task[0]);
+    }
+
+    @Override
+    public int getCountOfUpcomingTasks(User user, Date maxDate) {
+        return entityManager.createQuery("select t from Task t join t.wheel w where w.user = ?1 " +
+                "and t.dateScheduled >= current_date and t.dateScheduled <= ?2", Task.class)
+                .setParameter(1,user).setParameter(2, maxDate).getResultList().size();
     }
 
     @Override

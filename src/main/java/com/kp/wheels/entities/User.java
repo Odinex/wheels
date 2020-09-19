@@ -40,12 +40,14 @@ public class User {
 
     @Column
     private int daysBetweenNotifications =1;
+    @Column
+    private int maxDaysBeforeUpcoming =7;
 
     public User() {
     }
 
     public User(final String username,
-                final String password, final String email, Boolean isSubscribedForMail, Boolean isSubscribedForNotifications, int daysBetweenNotifications) {
+                final String password, final String email, Boolean isSubscribedForMail, Boolean isSubscribedForNotifications, int daysBetweenNotifications,int maxDaysBeforeUpcoming) {
         super();
         this.name = requireNonNull(username);
         this.password = requireNonNull(password);
@@ -53,6 +55,7 @@ public class User {
         this.isSubscribedForMail = isSubscribedForMail;
         this.isSubscribedForNotifications = isSubscribedForNotifications;
         this.daysBetweenNotifications = daysBetweenNotifications;
+        this.maxDaysBeforeUpcoming = maxDaysBeforeUpcoming;
 
     }
 
@@ -62,7 +65,8 @@ public class User {
                 @JsonProperty("email") final String email,
                 @JsonProperty("isSubscribedForMail") final Boolean isSubscribedForMail,
                 @JsonProperty("isSubscribedForNotifications")final Boolean isSubscribedForNotifications,
-                @JsonProperty("daysBetweenNotifications") int daysBetweenNotifications) {
+                @JsonProperty("daysBetweenNotifications") int daysBetweenNotifications,
+                @JsonProperty("maxDaysBeforeUpcoming") int maxDaysBeforeUpcoming) {
         super();
         this.id = requireNonNull(id);
         this.name = requireNonNull(name);
@@ -70,6 +74,7 @@ public class User {
         this.isSubscribedForMail = isSubscribedForMail;
         this.isSubscribedForNotifications = isSubscribedForNotifications;
         this.daysBetweenNotifications = daysBetweenNotifications;
+        this.maxDaysBeforeUpcoming = maxDaysBeforeUpcoming;
     }
 
     @JsonIgnore
@@ -167,5 +172,13 @@ public class User {
 
     public void setSubscribedForMail(Boolean subscribedForMail) {
         isSubscribedForMail = subscribedForMail;
+    }
+
+    public int getMaxDaysBeforeUpcoming() {
+        return maxDaysBeforeUpcoming;
+    }
+
+    public void setMaxDaysBeforeUpcoming(int maxDaysBeforeUpcoming) {
+        this.maxDaysBeforeUpcoming = maxDaysBeforeUpcoming;
     }
 }

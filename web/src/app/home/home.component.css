@@ -49,17 +49,20 @@ table {
   font-size: 10px;
 }
 .mat-cell {
-  margin:50px;
-  min-height: 20vh;
-  min-width: 15vh;
-  max-width:25vh;
-  word-wrap: break-word;
-   font-size: 20px;
-  border-right: aliceblue;
-  padding-right: 1vh;
-  white-space:w;
- }
+    margin:50px;
+    min-height: 20vh;
+    min-width: 15vh;
+    max-width:25vh;
+    word-wrap: break-word;
+    font-size: 20px;
+    border-right: aliceblue;
+    padding-right: 1vh;
+    white-space:w;
+  }
 .mat-header-cell {
   margin:50px;
   font-size: 20px;
+  min-height: 20vh;
+  min-width: 15vh;
+  max-width:25vh;
 }

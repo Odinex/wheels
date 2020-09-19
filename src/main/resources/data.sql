@@ -1,7 +1,11 @@
-insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications) values (100,'Ivan', 'password', 'kostadin3443@gmail.com',1, 1, 1);
-insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications) values (101,'Georgi', 'password', 'kostadin3443@gmail.com',1, 1, 1);
-insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications) values (102,'Ivelina', 'password', 'kostadin3443@gmail.com',1, 1, 1);
-insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications) values (103,'Pavlina', 'password', 'kostadin3443@gmail.com',1, 1, 1);
+insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications, max_days_before_upcoming)
+ values (100,'Ivan', 'password', 'kostadin3443@gmail.com',1, 1, 1, 7);
+insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications, max_days_before_upcoming)
+ values (101,'Georgi', 'password', 'kostadin3443@gmail.com',1, 1, 1, 7);
+insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications, max_days_before_upcoming) 
+values (102,'Ivelina', 'password', 'kostadin3443@gmail.com',1, 1, 1, 7);
+insert into user(id,name,password, email,IS_SUBSCRIBED_FOR_NOTIFICATIONS, IS_SUBSCRIBED_FOR_MAIL, days_between_notifications, max_days_before_upcoming)
+ values (103,'Pavlina', 'password', 'kostadin3443@gmail.com',1, 1, 1, 7);
 
 insert into wheel(id,make,model,name, user_id) values (100,'Lamborghini', 'Aventador S', 'Aventador',100);
 insert into wheel(id,make,model,name, user_id) values (101,'Lamborghini', 'URUS', 'Lambo',101);
@@ -34,3 +38,4 @@ insert into Task(id,date_created, date_scheduled, task_type, details, wheel_id, 
 insert into Task(id,date_created, date_scheduled, task_type, details, wheel_id, is_completed)
           values(107,CURRENT_DATE ,current_date +4, 'type','other type details', 100,false);
 
+commit;

@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -29,7 +30,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatInputModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   exports: [
     MatSidenavModule,
@@ -43,7 +45,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatTableModule,
     MatInputModule,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule {}

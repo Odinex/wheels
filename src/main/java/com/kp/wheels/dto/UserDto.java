@@ -7,6 +7,7 @@ public class UserDto {
     private Boolean isSubscribedForMail = true;
     private Boolean isSubscribedForNotifications = true;
     private int daysBetweenNotifications = 1;
+    private int maxDaysBeforeUpcoming;
 
     public UserDto() {
     }
@@ -57,5 +58,13 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getMaxDaysBeforeUpcoming() {
+        return maxDaysBeforeUpcoming;
+    }
+
+    public void setMaxDaysBeforeUpcoming(int maxDaysBeforeUpcoming) {
+        this.maxDaysBeforeUpcoming = maxDaysBeforeUpcoming;
     }
 }

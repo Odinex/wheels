@@ -2,6 +2,8 @@ package com.kp.wheels.services;
 
 import com.kp.wheels.entities.User;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {//extends UserDetailsService {
@@ -31,5 +33,11 @@ public interface UserService {//extends UserDetailsService {
     void logout(User user);
 
 
-    void signUp(String username, String password, String email, Boolean mail, Boolean notifications, int days) throws Exception;
+    void signUp(String username, String password, String email, Boolean mail, Boolean notifications, int days, int maxDaysBeforeUpcoming) throws Exception;
+
+    List<User> getUsersToBeNotified();
+
+    User getUserById(Long userId);
+
+    void updateUserLastMailCheck(Date now, Long id);
 }
